@@ -32,12 +32,17 @@ export declare class EventAggregator {
   publish(event: string | any, data?: any): void;
   
   /**
-    * Subscribes to a message channel or message type.
-    * @param event The event channel or event data type.
+    * Subscribes to a message channel.
+    * @param event The event channel.
     * @param callback The callback to be invoked when when the specified message is published.
     */
-  subscribe(event: string | Function, callback: Function): Subscription;
-  
+  subscribe(event: string , callback: Function): Subscription;
+    /**
+    * Subscribes to a message type.
+    * @param event The event data type.
+    * @param callback The callback to be invoked when when the specified message is published, it recive the message object as first parameter.
+    */
+  subscribe<T>(event:  {new(...args):T}, callback: ((message: T) => void)): Subscription;
   /**
     * Subscribes to a message channel or message type, then disposes the subscription automatically after the first message is received.
     * @param event The event channel or event data type.
